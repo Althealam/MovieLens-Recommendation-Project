@@ -1,0 +1,13 @@
+data/ml-1m/movies.csv
+data/ml-1m/ratings.csv
+data/ml-1m/movies.dat
+data/ml-1m/ratings.dat
+data/ml-1m/users.csv
+data/ml-1m/users.dat
+data/preprocess_data/data.csv
+data/preprocess_data/process_movies_df.csv
+data/preprocess_data/process_users_df.csv
+data/preprocess.p
+data/split_dataset.p
+model_save/*
+runs/movie_recommendation_logs/*
