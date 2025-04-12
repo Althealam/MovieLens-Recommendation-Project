@@ -35,3 +35,13 @@
 
 【Update 2025/4/10】
 1. 检查了一下DIN模型，对特征维度做了一些些修改，但是Loss还是超级高，需要debug看看问题在哪
+
+
+【Update 2025/4/12】
+1. 在train函数中打印了梯度值，发现有梯度爆炸的问题存在
+（1）在attention层将ReLU激活函数替换为Dice，但是仍然有梯度爆炸的问题
+2. 之前存在的问题
+（1）train_loader在用enumerate输出的时候要按照顺序，之前的history_movie_ids和ratings的顺序反了，已经改过来了
+（2）prediction层的维度必须要和concat_features的维度对齐，要让linear层的矩阵可以和concat_features相乘
+3. 还存在的问题：
+（1）prediction的预测值超过了5，并且还会有负数出现
