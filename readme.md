@@ -45,3 +45,11 @@
 （2）prediction层的维度必须要和concat_features的维度对齐，要让linear层的矩阵可以和concat_features相乘
 3. 还存在的问题：
 （1）prediction的预测值超过了5，并且还会有负数出现
+
+【Update 2025/4/14】
+1. 定义了一个自定义的激活函数，限制输出在1到5之间，但是Loss还是会出现震荡的情况，没办法收敛
+* 代码路径：debug_rank_model_v1.ipynb
+一些可能优化的点：
+1. 处理侯选电影和历史电影的embedding，比如user_id, candidate_movie_id, rating, gender, age, occupation, title, genres, history_movie_id, history_movie_title, history_movie_genres
+然后将history_movie_id, history_movie_title, history_movie_genres处理成embedding合并在一起
+* 代码地址：DIN_dataset.ipynb
