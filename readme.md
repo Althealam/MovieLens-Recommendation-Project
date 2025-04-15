@@ -53,3 +53,11 @@
 1. 处理侯选电影和历史电影的embedding，比如user_id, candidate_movie_id, rating, gender, age, occupation, title, genres, history_movie_id, history_movie_title, history_movie_genres
 然后将history_movie_id, history_movie_title, history_movie_genres处理成embedding合并在一起
 * 代码地址：DIN_dataset.ipynb
+
+【Update 2025/4/15】
+1. 弄了双塔模型的推理部分，希望可以实现对于每个用户ID，推荐最有可能感兴趣的top10个电影（优先级比较高的问题）
+* 代码路径：two_tower_model_infer.ipynb
+* 仍存在的问题：返回的相似度矩阵的元素全都是相同的，可能是在模型调用的地方出现了问题
+2. 弄了DIN模型的第二版，感觉有以下问题需要注意：
+（1）使用原本的movies.csv, ratings.csv, users.csv比较好，因为ratings里面有timestamp，这样可以获得序列关系
+（2）DIN在加载数据的时候特别慢，跑了50多分钟还没跑出来，可能需要先用双塔召回后再来跑比较好，或者是先用验证集来弄，避免数据量太大了跑不出来。
