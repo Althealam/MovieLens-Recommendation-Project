@@ -129,7 +129,7 @@ class UserTower(nn.Module):
         user_output = self.tanh(self.combine_fc(user_combine))
         # L2正则化,使向量长度为1
         user_output = F.normalize(user_output, p=2, dim=1)
-        return user_output
+        return user_output 
 
 
 class MovieTower(nn.Module):
@@ -245,12 +245,12 @@ class MovieRecommendationModel(nn.Module):
         :param movie_titles: 电影标题
         :return: 相似度矩阵
         """
-        user_output = self.user_tower(uid, user_gender, user_age, user_job)
-        movie_output = self.movie_tower(movie_id, movie_categories, movie_titles)
+        user_output = self.user_tower(uid, user_gender, user_age, user_job) # 给定用户ID的情况下，用户塔的输入
+        movie_output = self.movie_tower(movie_id, movie_categories, movie_titles) # 给定电影ID的情况下，电影塔的输入
         # 计算余弦相似度
         similarity = torch.matmul(user_output, movie_output.t()) / self.temperature
         return similarity, user_output, movie_output
-
+ 
 
 def info_nce_loss(similarity, user_output, movie_output, labels, negative_movie_output, device, margin=0.5):
     """
@@ -327,6 +327,7 @@ def train_model(model, train_loader, test_loader, optimizer, num_epochs, show_ev
 
             # 前向传播
             similarity, user_output, movie_output = model(uid, user_gender, user_age, user_job, movie_id, movie_categories, movie_titles)
+            print(similarity)
             # 获取负样本的电影特征
             negative_movie_output = model.movie_tower(negative_movie, movie_categories, movie_titles)
             
@@ -415,7 +416,7 @@ if __name__ == '__main__':
     filter_num = 8
 
     # 定义超参数
-    num_epochs = 5
+    num_epochs = 1
     batch_size = 256
     dropout_keep_prob = 0.5
     learning_rate = 0.0001
