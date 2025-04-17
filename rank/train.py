@@ -89,9 +89,6 @@ rank_model = RankModel(uid_num, gender_num, age_num, job_num, mid_num, movie_cat
 print("开始训练模型...")
 rank_model.train(train_loader)
 
-# 评估模型
-print("开始评估模型...")
-rank_model.evaluate(test_features, test_targets)
 
 # 保存模型
 save_dir = os.path.join(os.getcwd(), "model_save")
@@ -103,3 +100,8 @@ formatted_date=today.strftime('%Y%m%d')
 model_path = os.path.join(save_dir, f"din_model_{formatted_date}.pth")  # 具体的模型保存文件路径（根据日期进行区分）
 torch.save(rank_model.state_dict(), model_path)
 print('Model Trained and Saved')
+
+# 评估模型
+print("开始评估模型...")
+rank_model.evaluate(test_loader)
+

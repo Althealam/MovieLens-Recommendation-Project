@@ -17,6 +17,7 @@
 * train.py：排序模型训练脚本
 * debug_rank_model_v1.ipynb：Dice模型调试代码 version1
 * debug_rank_model_v2.ipynb：Dice模型调试代码 version2
+3. data.py：获取MovieLens的数据
 
 
 ## 更新日志
@@ -87,3 +88,6 @@
 【Update 2025/4/16】
 1. 弄了双塔模型的推理部分，需要将所有电影的embedding缓存起来，目前正在弄这个，现在还有报错，需要解决
 2. 后续需要基于给定的embedding和用户ID，返回该用户可能感兴趣的topk个电影，弄完召回后，再去弄DIN
+
+【Update 2025/4/17】
+1. 将rank和recall模块进行了划分
