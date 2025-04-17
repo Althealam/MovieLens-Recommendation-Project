@@ -1,3 +1,25 @@
+## 代码结构
+1. recall：召回模块
+* movie_tower.py：电影塔
+* user_tower.py：用户塔
+* two_tower_model.py：双塔模型
+* dataset.py：双塔模型数据处理
+* train.py：双塔模型训练脚本
+* all_code.py：所有代码集成的脚本
+* debug_two_tower_model.ipynb：双塔模型调试代码
+2. rank：排序模块
+* din_model.py：DIN模型
+* attention_layer.py：注意力层
+* activation_function：自定义激活函数
+* dice.py：Dice激活函数
+* rank_model：排序模型
+* dataset.py：排序模型数据处理
+* train.py：排序模型训练脚本
+* debug_rank_model_v1.ipynb：Dice模型调试代码 version1
+* debug_rank_model_v2.ipynb：Dice模型调试代码 version2
+
+
+## 更新日志
 【Update 2025/3/31】
 1. 实现了用评分作为监督信号的模型，并且模型训练效果看起来还不错
 （1）模型效果：/Users/linjiaxi/Desktop/MovieLens Recommendation System/runs/movie_recommendation_logs/events.out.tfevents.1741613656.linjiaxideMacBook-Air.local.63303.0

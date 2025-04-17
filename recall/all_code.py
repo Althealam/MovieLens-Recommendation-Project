@@ -327,7 +327,6 @@ def train_model(model, train_loader, test_loader, optimizer, num_epochs, show_ev
 
             # 前向传播
             similarity, user_output, movie_output = model(uid, user_gender, user_age, user_job, movie_id, movie_categories, movie_titles)
-            print(similarity)
             # 获取负样本的电影特征
             negative_movie_output = model.movie_tower(negative_movie, movie_categories, movie_titles)
             
@@ -398,13 +397,13 @@ if __name__ == '__main__':
     # 电影名单词个数
     movie_title_num = len(title_set)
 
-    print(f"uid num:{uid_num}")
-    print(f"gender num:{gender_num}")
-    print(f"age num:{age_num}")
-    print(f"job num:{job_num}")
-    print(f"movie id num:{mid_num}")
-    print(f"movie category num:{movie_category_num}")
-    print(f"movie title num:{movie_title_num}")
+    print(f"uid num:{uid_num}") # 6041
+    print(f"gender num:{gender_num}") # 2
+    print(f"age num:{age_num}") # 7
+    print(f"job num:{job_num}") # 21
+    print(f"movie id num:{mid_num}") # 3953
+    print(f"movie category num:{movie_category_num}") # 19
+    print(f"movie title num:{movie_title_num}") # 5217
     # 对电影类型的 embedding 向量做 sum 操作
     combiner = "sum"
 
