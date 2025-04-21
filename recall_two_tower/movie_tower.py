@@ -26,13 +26,15 @@ class MovieTower(nn.Module):
         :param dropout_keep_prob: Dropout的保留概率
         """
         super(MovieTower, self).__init__()
-        # 创建嵌入层
+        ##### 嵌入层 #####
         self.movie_id_embedding = nn.Embedding(mid_num, embed_dim) # 电影ID的嵌入层
         self.movie_categories_embedding = nn.Embedding(movie_category_num, embed_dim) # 电影类型的嵌入层
         self.movie_title_embedding = nn.Embedding(movie_title_num, embed_dim) # 电影标题的嵌入层
-        # 激活函数
-        self.relu = nn.ReLU()
-        self.tanh = nn.Tanh()
+        ##### 激活函数 #####
+        self.relu = nn.ReLU() # ReLU激活函数，引入非线性
+        self.tanh = nn.Tanh() # Tanh激活函数，最终输出层
+
+        ##### 全连接层 #####
         # 电影 ID 全连接层
         self.movie_id_fc = nn.Linear(embed_dim, embed_dim)
         # 电影类型全连接层
@@ -41,6 +43,8 @@ class MovieTower(nn.Module):
         self.conv_layers = nn.ModuleList([
             nn.Conv2d(1, filter_num, (window_size, embed_dim)) for window_size in window_sizes
         ])
+
+        ##### Dropout层 #####
         self.dropout = nn.Dropout(1 - dropout_keep_prob)
         # 第二层全连接
         self.combine_fc = nn.Linear(2 * embed_dim + len(window_sizes) * filter_num, 200)
@@ -60,7 +64,8 @@ class MovieTower(nn.Module):
         movie_title_embed = self.movie_title_embedding(movie_titles) # 电影标题嵌入向量
         movie_title_embed_expand = movie_title_embed.unsqueeze(1) # 添加通道维度
 
-        # 使用CNN处理标题
+        # 标题特征处理
+        # 使用不同窗口大小的卷积层对电影标题的嵌入向量进行卷积操作，然后通过ReLU激活和最大池化提取特征
         pool_layer_lst = []
         for conv in self.conv_layers:
             # 卷积操作

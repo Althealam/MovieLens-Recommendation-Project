@@ -20,12 +20,12 @@ class MovieDataset(Dataset):
         :param targets: 目标值（评分）
         :param movies_df: 电影数据框
         """
-        self.features = features # 特征数据
+        self.features = features # 特征数据（电影、用户）
         self.targets = targets # 目标值（评分）
-        # 计算电影热度
+        # 计算每个电影被播放的次数
         movie_counts=data['movie_id'].value_counts()
+        # 计算每个电影的热度，选择top1000个最热门的电影
         self.movie_popularity=movie_counts.sort_values(ascending=False)[:1000]
-        # self.movie_popularity = movies_df.groupby('movie_id').size() # 统计每部电影的出现次数
         self.popular_movies = set(self.movie_popularity.nlargest(1000).index) # 取前1000个热门电影
         
     def __len__(self):
@@ -50,7 +50,7 @@ class MovieDataset(Dataset):
         
         # 标签处理：评分大于3分的标记为正样本（label=1），否则为负样本（label=0）
         label = 1.0 if self.targets[idx] > 3.0 else 0.0
-        # 将标签转换为张亮
+        # 将标签转换为张量
         targets = torch.tensor(label).float()
         
         # 从热门电影集合里随机选择一个作为额外的负样本

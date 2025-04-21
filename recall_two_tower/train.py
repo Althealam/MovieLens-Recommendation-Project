@@ -33,21 +33,23 @@ def info_nce_loss(similarity, user_output, movie_output, labels, negative_movie_
     :return: 损失值 
     """
     labels = labels.view(-1, 1)  # [B, 1]
+
+    # 创建掩码
     pos_mask = torch.eq(labels, labels.T).float().to(device)  # [B, B] 创建正样本掩码
     neg_mask = 1 - pos_mask  # [B, B] 创建负样本掩码
     
-    # 计算与热门电影的相似度（使用0.07作为温度参数）
+    # 计算与热门电影的相似度（使用0.07作为温度参数，负样本相似度）
     negative_sim = torch.matmul(user_output, negative_movie_output.t()) / 0.07
     
     # 找出难负样本(相似度高于阈值的负样本）
     hard_negative_mask = (similarity > margin) & (neg_mask.bool())
     
-    # 计算正样本的loss
+    # 计算正样本的loss（通过指数化相似度计算正样本的对数概率log_prob，进而得到正样本的平均对数概率mean_log_prob_pos）
     exp_sim = torch.exp(similarity)  # [B, B]
     log_prob = similarity - torch.log(exp_sim.sum(dim=1, keepdim=True))  # [B, B]
     mean_log_prob_pos = (pos_mask * log_prob).sum(1) / pos_mask.sum(1)  # [B]
     
-    # 计算难负样本的loss
+    # 计算难负样本的loss：对难负样本的相似度取平均得到hard_negative_loss
     hard_negative_loss = torch.where(hard_negative_mask, similarity, torch.zeros_like(similarity)).mean()
     
     # 计算热门电影负样本的loss

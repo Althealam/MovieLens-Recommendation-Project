@@ -14,6 +14,7 @@ from datetime import datetime
 from movie_tower import MovieTower
 from user_tower import UserTower
 
+
 class MovieRecommendationModel(nn.Module):
     def __init__(self, uid_num, gender_num, age_num, job_num, embed_dim, mid_num, movie_category_num, movie_title_num, window_sizes, filter_num, sentence_size, dropout_keep_prob):
         """
@@ -32,9 +33,11 @@ class MovieRecommendationModel(nn.Module):
         :param dropout_keep_prob: Dropout的保留比例
         """
         super(MovieRecommendationModel, self).__init__()
+        # 构建用户塔
         self.user_tower = UserTower(uid_num, gender_num, age_num, job_num, embed_dim)
+        # 构建物品塔
         self.movie_tower = MovieTower(mid_num, movie_category_num, movie_title_num, embed_dim, window_sizes, filter_num, sentence_size, dropout_keep_prob)
-        self.temperature = nn.Parameter(torch.tensor(0.07))  # 温度参数,可学习
+        self.temperature = nn.Parameter(torch.tensor(0.07))  # 温度参数,可学习（在计算相似度的时候起到调整相似度分布的作用，有助于模型的训练和收敛）
 
     def forward(self, uid, user_gender, user_age, user_job, movie_id, movie_categories, movie_titles):
         """
@@ -48,6 +51,7 @@ class MovieRecommendationModel(nn.Module):
         :param movie_titles: 电影标题
         :return: 相似度矩阵
         """
+        ##### 特征提取 #####
         user_output = self.user_tower(uid, user_gender, user_age, user_job) # 给定用户ID的情况下，用户塔的输入
         movie_output = self.movie_tower(movie_id, movie_categories, movie_titles) # 给定电影ID的情况下，电影塔的输入
         # 计算余弦相似度
