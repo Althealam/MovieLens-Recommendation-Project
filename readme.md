@@ -102,3 +102,6 @@
 1. 获取用户特征和电影特征，并且保存到data的features文件夹下
 2. 构建双塔模型
 待完成事项：跑通双塔模型的训练代码
+
+【Update 2025/4/23】
+1. 弄了一下user_features, movie_features：对title, genres做了处理；并且弄了user_dataset和movie_dataset，但是目前还存在报错，需要排查
