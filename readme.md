@@ -105,3 +105,15 @@
 
 【Update 2025/4/23】
 1. 弄了一下user_features, movie_features：对title, genres做了处理；并且弄了user_dataset和movie_dataset，但是目前还存在报错，需要排查
+
+【Update 2025/4/24】
+1. 处理了user_features, movie_features。
+（1）movie_features
+* 评分统计：每个用户的平均评分（mean_rating）、评分标准差（rating_std）、评分次数（rating_count）、最小评分（rating_min）、最大评分（rating_max）
+* 评分行为特征：用户的评分严格程度（rating_strictness）、用户的评分波动程度（rating_variability）
+* 类型偏好特征：用户对每种电影类型的评分次数（{genre}_rating_cnt）、用户对每种类型的偏好程度（{genre}_favorite_degree）、用户最喜欢的类型（favorite_genre）、用户喜欢的类型数量（num_liked_genres）
+2. 电影特征
+* 评分统计：每个电影的平均评分（movie_mean_rating）、评分标准差（movie_rating_std）、评分次数（movie_rating_count）
+* 类型特征：电影的原始信息（movie_id, title, genres）和one hot编码的类型列
+* 电影类型纯度（genre_purity）：1除以类型数量（类型越少，纯度越高）
+2. 仍然存在的问题：不知道为什么环境出现了问题，导致出现报错AttributeError: module 'torch._functorch.eager_transforms' has no attribute 'grad_and_value'
