@@ -107,7 +107,7 @@
 1. 弄了一下user_features, movie_features：对title, genres做了处理；并且弄了user_dataset和movie_dataset，但是目前还存在报错，需要排查
 
 【Update 2025/4/24】
-1. 处理了user_features, movie_features。
+1. 处理了user_features, movie_features。主要更新点：新增了用户的评分次数特征
 （1）movie_features
 * 评分统计：每个用户的平均评分（mean_rating）、评分标准差（rating_std）、评分次数（rating_count）、最小评分（rating_min）、最大评分（rating_max）
 * 评分行为特征：用户的评分严格程度（rating_strictness）、用户的评分波动程度（rating_variability）
