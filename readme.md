@@ -117,3 +117,7 @@
 * 类型特征：电影的原始信息（movie_id, title, genres）和one hot编码的类型列
 * 电影类型纯度（genre_purity）：1除以类型数量（类型越少，纯度越高）
 2. 仍然存在的问题：不知道为什么环境出现了问题，导致出现报错AttributeError: module 'torch._functorch.eager_transforms' has no attribute 'grad_and_value'
+
+
+【Update 2025/4/28】
+1. 排查了训练模型时出现loss和mae为nan的情况，这是因为movie_features里面含有nan==>有些movie没有被评分过，因此movie_ratings_std为nan
