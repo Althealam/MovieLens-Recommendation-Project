@@ -158,3 +158,10 @@
 1. 重新构建了一下双塔 改造了损失函数
 2. 用recall@K和NDCG@K评估了模型效果 不太好 
 3. 用FAISS存储了movie_embedding，然后统计了测试用户的召回电影
+
+【Update 2025/5/10】
+1. 重构了feature_engineering, get_neg_pos, embedding_config等文件，顺序是：fe=>embedding_config=>get_neg_pos
+2. 使用pointwise训练了模型
+3. 用FAISS存储了movie_embedding并且计算recall@k
+还存在的问题：
+没有被评分过的电影需要进行冷启动，否则的话movie_embedding中不会存在这些电影的embedding
