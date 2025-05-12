@@ -165,3 +165,7 @@
 3. 用FAISS存储了movie_embedding并且计算recall@k
 还存在的问题：
 没有被评分过的电影需要进行冷启动，否则的话movie_embedding中不会存在这些电影的embedding
+
+【Update 2025/5/12】
+1. 计算了NDCG
+2. 开启了排序部分，目前在XGBRanker部分，仍然存在报错需要排查
