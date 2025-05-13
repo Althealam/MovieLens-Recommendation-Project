@@ -11,3 +11,5 @@ data/preprocess.p
 data/split_dataset.p
 model_save/*
 runs/movie_recommendation_logs/*
+*.csv
+*.pkl

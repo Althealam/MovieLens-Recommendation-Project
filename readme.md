@@ -1,3 +1,5 @@
+## 提醒事项
+请以two_tower_v2分支为准，该分支已废弃
 ## 代码结构
 1. recall：召回模块
 * movie_tower.py：电影塔
