@@ -1,24 +1,10 @@
-## 代码结构
-1. recall：召回模块
-* movie_tower.py：电影塔
-* user_tower.py：用户塔
-* two_tower_model.py：双塔模型
-* dataset.py：双塔模型数据处理
-* train.py：双塔模型训练脚本
-* all_code.py：所有代码集成的脚本
-* debug_two_tower_model.ipynb：双塔模型调试代码
-2. rank：排序模块
-* din_model.py：DIN模型
-* attention_layer.py：注意力层
-* activation_function：自定义激活函数
-* dice.py：Dice激活函数
-* rank_model：排序模型
-* dataset.py：排序模型数据处理
-* train.py：排序模型训练脚本
-* debug_rank_model_v1.ipynb：Dice模型调试代码 version1
-* debug_rank_model_v2.ipynb：Dice模型调试代码 version2
-3. data.py：获取MovieLens的数据
-
+## 仓库结构
+1. config：包含各种配置文件，比如movie_embedding_config, user_embedding_config
+2. data：经过负样本采样后的数据 比如pos_neg_data
+3. embedding：存放经过电影塔的embedding向量
+4. faiss：将经过电影塔的embedding向量以faiss的形式存储
+5. features：包含用户和物品的特征向量（经过处理的）
+6. 代码顺序：feature_engineering=>get_neg_pos_sample=>embedding_config=model
 
 ## 更新日志
 【Update 2025/3/31】
@@ -169,3 +155,8 @@
 【Update 2025/5/12】
 1. 计算了NDCG
 2. 开启了排序部分，目前在XGBRanker部分，仍然存在报错需要排查
+
+
+【Update 2025/5/13】
+1. 重新评估了双塔模型（recall和ndcg不太适合作为评估指标），使用AUC作为评估指标
+2. 在双塔模型网络层中增加了Dropout和BN
